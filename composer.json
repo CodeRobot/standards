@@ -1,0 +1,25 @@
+{
+  "name": "coderobot/standards",
+  "description": "The PHP_CodeSniffer standards and standards manual.",
+  "license": "DBAD",
+  "authors": [
+    {
+      "name": "Dan Previte",
+      "email": "dprevite@coderobot.net"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "zetacomponents/console-tools": "dev-master",
+    "symfony/console": "~2.3"
+  },
+  "autoload": {
+    "classmap": [
+      "commands"
+    ]
+  },
+  "bin": [
+    "blame",
+    "enforcer"
+  ]
+}

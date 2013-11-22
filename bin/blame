@@ -1,0 +1,122 @@
+#!/usr/bin/php
+<?php
+  require __DIR__ . '/../vendor/autoload.php';
+
+  $cmd = 'phpcs --report=xml -s --standard=phpcs.xml app';
+  $xml = `$cmd`;
+  @$data = simplexml_load_string($xml);
+
+  if ($data === FALSE) {
+    echo 'Could not parse phpcs xml response.' . PHP_EOL;
+    exit;
+  }
+
+  foreach ($data as $file) {
+    $path     = (string)$file->attributes()->name;
+    $errors   = (int)$file->attributes()->errors;
+    $warnings = (int)$file->attributes()->warnings;
+    displayFileHeader($path, $warnings, $errors);
+
+    $table_data = [
+      [
+        'Line',
+        'Type',
+        'Error',
+        'Author'
+      ]
+    ];
+    $output = new ezcConsoleOutput();
+    $output->formats->headBorder->color   = 'white';
+    $output->formats->normalBorder->color = 'white';
+    $output->formats->headContent->color  = 'white';
+    $output->formats->headContent->style  = [
+      'bold'
+    ];
+    $table = new ezcConsoleTable($output, 90);
+    $table->options->defaultBorderFormat = 'normalBorder';
+    $table[0]->borderFormat = 'headBorder';
+    $table[0]->format       = 'headContent';
+    $table[0]->align        = ezcConsoleTable::ALIGN_LEFT;
+    foreach ($table_data as $row => $cells) {
+      foreach ($cells as $cell) {
+        $table[$row][]->content = $cell;
+      }
+    }
+
+    $row = 1;
+
+    foreach ($file->error as $error) {
+      $line   = (int)$error->attributes()->line;
+      $source = (string)$error->attributes()->source;
+      $cmd    = 'git blame -p -L' . $line . ',+1 ' . $path . ' | cat';
+      $blame  = parseBlame(`$cmd`);
+
+      $table[$row][]->content = (string)$line;
+      $table[$row][]->content = 'Error';
+      $table[$row][]->content = (string)$error . PHP_EOL . $source;
+      $table[$row][]->content = $blame;
+      $row++;
+    }
+
+    foreach ($file->warning as $error) {
+      $line   = (int)$error->attributes()->line;
+      $source = (string)$error->attributes()->source;
+      $cmd    = 'git blame -p -L' . $line . ',+1 ' . $path . ' | cat';
+      $blame  = parseBlame(`$cmd`);
+
+      $table[$row][]->content = (string)$line;
+      $table[$row][]->content = 'Warning';
+      $table[$row][]->content = (string)$error . PHP_EOL . $source;
+      $table[$row][]->content = $blame;
+      $row++;
+    }
+
+    $table->outputTable();
+    $output->outputLine();
+    echo PHP_EOL;
+  }
+
+
+  /**
+   * Parse the blame string from the command line
+   *
+   * @param string $blame The raw blame
+   *
+   * @return string
+   **/
+  function parseBlame($blame) {
+    $lines = explode(PHP_EOL, $blame);
+    foreach ($lines as $line) {
+      if (substr($line, 0, 7) == 'author ') {
+        return str_replace('author ', '', $line);
+      }
+    }
+  }
+
+
+  /**
+   * Display the file header
+   *
+   * @param string  $path     The path to the file
+   * @param integer $warnings The number of phpcs warnings
+   * @param integer $errors   The number of phpcs errors
+   *
+   * @return void
+   **/
+  function displayFileHeader($path, $warnings, $errors) {
+    $path = str_replace('/Users/dprevite/Projects/CodeRobot_dev/www/', '', $path);
+    echo PHP_EOL;
+    echo 'FILE: ' . $path . PHP_EOL;
+    echo 'FOUND ';
+    if ($errors > 0) {
+      echo $errors . ' ERROR(S) ';
+      if ($warnings > 0) {
+        echo 'AND ';
+      }
+    }
+    if ($warnings > 0) {
+      echo $warnings  . ' WARNING(S) ';
+    }
+    echo PHP_EOL;
+    echo PHP_EOL;
+  }

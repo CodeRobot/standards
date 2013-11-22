@@ -1,0 +1,17 @@
+#!/usr/local/php5/bin/php
+<?php
+
+  namespace CodeRobot\Standards\Enforcer;
+  use Symfony\Component\Console\Application;
+
+  require __DIR__ . '/../bootstrap.php';
+
+  // Set up the application
+  $application = new Application();
+  $application->add(new AboutCommand);
+  $application->add(new BlameCommand);
+  $application->setName('Enforcer');
+  $application->setVersion('1.5');
+
+  // Hold on to your butts...
+  $application->run();
