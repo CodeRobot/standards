@@ -19,7 +19,7 @@
     ]
   },
   "bin": [
-    "blame",
-    "enforcer"
+    "bin/blame",
+    "bin/enforcer"
   ]
 }
