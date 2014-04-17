@@ -32,6 +32,9 @@
     /**
      * Execute the command
      *
+     * @param InputInterface  $input  The input from the command line
+     * @param OutputInterface $output Where we send output
+     *
      * @return void
      **/
     protected function execute(InputInterface $input, OutputInterface $output) {
