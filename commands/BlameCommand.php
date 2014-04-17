@@ -41,6 +41,9 @@
     /**
      * Execute the command
      *
+     * @param InputInterface  $input  The input from the command line
+     * @param OutputInterface $output Where we send output
+     *
      * @return void
      **/
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -126,12 +129,13 @@
 
         $table->render($output);
       }
-
     }
 
 
     /**
      * Run the phpcs command and retrieve the output
+     *
+     * @param string $path The path to run blame report in
      *
      * @return SimpleXMLElement
      **/
