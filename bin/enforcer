@@ -10,8 +10,9 @@
   $application = new Application();
   $application->add(new AboutCommand);
   $application->add(new BlameCommand);
+  $application->add(new ReportCommand);
   $application->setName('Enforcer');
-  $application->setVersion('1.5');
+  $application->setVersion('1.6');
 
   // Hold on to your butts...
   $application->run();
