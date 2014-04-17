@@ -67,14 +67,14 @@
           $row = [];
           $line   = (int)$error->attributes()->line;
           $source = (string)$error->attributes()->source;
-          $cmd    = 'git blame -p -L' . $line . ',+1 ' . $path . ' | cat';
+          $cmd    = 'git blame -p -e -f -L' . $line . ',+1 ' . $path . ' | cat';
           $blame  = $this->parseBlame(`$cmd`);
 
           $row[] = (string)$line;
           $row[] = 'Error';
           $row[] = (string)$error;
           $row[] = $source;
-          $row[] = $blame;
+          $row[] = $blame->name;
           $report[] = $row;
         }
 
@@ -89,7 +89,7 @@
           $row[] = 'Warning';
           $row[] = (string)$error;
           $row[] = $source;
-          $row[] = $blame;
+          $row[] = $blame->name;
           $report[] = $row;
         }
 
@@ -194,15 +194,24 @@
      *
      * @param string $blame The raw blame
      *
-     * @return string
+     * @return object
      **/
     private function parseBlame($blame) {
-      $lines = explode(PHP_EOL, $blame);
+      $author = (object)[
+        'email' => NULL,
+        'name'  => NULL
+      ];
+
+      $lines = explode(PHP_EOL, trim($blame));
       foreach ($lines as $line) {
         if (substr($line, 0, 7) == 'author ') {
-          return str_replace('author ', '', $line);
+          $author->name = str_replace('author ', '', $line);
+        }
+        if (substr($line, 0, 12) == 'author-mail ') {
+          $author->email = str_replace('author-mail ', '', $line);
         }
       }
+      return $author;
     }
 
 
