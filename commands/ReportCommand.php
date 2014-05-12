@@ -284,7 +284,7 @@
      * @return string
      **/
     private function getLastAuthor() {
-      $cmd    = 'git --git-dir ' . getcwd() . '/.git log --pretty=format:"%ae" HEAD^..HEAD | cat';
+      $cmd    = 'git --git-dir ' . getcwd() . '/.git log --pretty=format:"%ae" HEAD^..HEAD | head -1';
       $author = trim(`$cmd`);
 
       // Check for these things in the author map
