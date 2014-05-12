@@ -87,6 +87,8 @@
       foreach ($this->reports as $email => $report) {
         if ($email != $triggeredBy) continue;
 
+        $this->output->writeln('<info>Sending report to ' . $email . '</info>');
+
         $message = View::render($this->templatePath . 'blame_email', [
           'files'         => $report,
           'currentCommit' => $currentCommit,
