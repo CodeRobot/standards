@@ -61,6 +61,9 @@
 
       $data = $this->parseCodeSnifferReport($this->path);
 
+      $currentCommit = substr($this->getCurrentCommit(), 0, 8);
+      $triggeredBy   = $this->getLastAuthor();
+
       foreach ($data as $file) {
         $path     = (string)$file->attributes()->name;
         $errors   = (int)$file->attributes()->errors;
@@ -82,28 +85,28 @@
       $mailer = \Swift_Mailer::newInstance($transport);
 
       foreach ($this->reports as $email => $report) {
-        $email = View::render($this->templatePath . 'blame_email', [
-          'files' => $report
+        if ($email != $triggeredBy) continue;
+
+        $message = View::render($this->templatePath . 'blame_email', [
+          'files'         => $report,
+          'currentCommit' => $currentCommit,
+          'triggeredBy'   => $triggeredBy,
+          'date'          => \Carbon\Carbon::now()->setTimezone('America/Chicago')->format('l jS \\of F Y h:i:s A')
         ]);
-        echo $email;
 
         // Create a message
-        $message = \Swift_Message::newInstance('Wonderful Subject')
+        $message = \Swift_Message::newInstance('Code Standards Report for #' . $currentCommit)
           ->setFrom([
             'dprevite@etech360.com' => 'Jenkins Enforcer'
           ])
           ->setTo([
-            'dprevite@gmail.com' => 'Dan Previte'
+            'dprevite@etech360.com' => 'Dan Previte'
           ])
-          ->addPart($email, 'text/html');
+          ->addPart($message, 'text/html');
 
         // Send the message
         $result = $mailer->send($message);
-
-        exit;
       }
-
-
     }
 
 
@@ -120,7 +123,7 @@
       $message = (string)$error;
       $line    = (int)$error->attributes()->line;
       $source  = (string)$error->attributes()->source;
-      $cmd     = 'git blame -p -e -f -L' . $line . ',+1 ' . $this->path . ' | cat';
+      $cmd     = 'git blame -p -e -f -L' . $line . ',+1 ' . $path . ' | cat';
       $blame   = $this->parseBlame(`$cmd`);
 
       $error = $blame;
@@ -138,8 +141,6 @@
       }
 
       $this->reports[$error->email][$error->path][] = $error;
-
-      #var_dump($this->reports);
     }
 
 
@@ -151,7 +152,7 @@
      * @return SimpleXMLElement
      **/
     private function parseCodeSnifferReport($path = '.') {
-      #$this->output->writeln('<info>Running blame report in ' . $path . '</info>');
+      $this->output->writeln('<info>Running blame report in ' . $path . '</info>');
 
       $cmd = 'phpcs --report=xml -s --standard=phpcs.xml ' . $path;
       $xml = `$cmd`;
@@ -214,6 +215,8 @@
       ];
 
       $lines = explode(PHP_EOL, trim($blame));
+      $author->commit = explode(' ', $lines[0])[0];
+
       foreach ($lines as $line) {
         if (substr($line, 0, 7) == 'author ') {
           $author->name = str_replace('author ', '', $line);
@@ -259,6 +262,38 @@
           'names'  => []
         ];
       }
+    }
+
+
+    /**
+     * Get the current commit
+     *
+     * @return string
+     **/
+    private function getCurrentCommit() {
+      $cmd = 'git --git-dir ' . getcwd() . '/.git rev-parse HEAD';
+      return `$cmd`;
+    }
+
+
+    /**
+     * Get the last author
+     *
+     * @return string
+     **/
+    private function getLastAuthor() {
+      $cmd    = 'git --git-dir ' . getcwd() . '/.git log --pretty=format:"%ae" HEAD^..HEAD | cat';
+      $author = trim(`$cmd`);
+
+      // Check for these things in the author map
+      foreach ($this->authorMap->emails as $original => $email) {
+        if ($original == $author) {
+          $author = $email;
+          break;
+        }
+      }
+
+      return $author;
     }
 
 

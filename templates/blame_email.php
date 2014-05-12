@@ -12,7 +12,7 @@
     <tr>
       <td class="center" align="center" valign="top">
         <center>
-          <table class="row header">
+          <table class="row header" style="background-color:#082f50">
             <tr>
               <td class="center" align="center">
                 <center>
@@ -54,10 +54,11 @@
                           <td>
                             <h1>Jenkins Code Sniffer Report</h1>
                             <p class="lead">
-                              Jenkins looked through your code, and thinks you stink.
+                              Jenkins has found the following code standards violations.
                             </p>
                             <p>
-                              These errors need to be corrected.
+                              These errors seem to have been introduced by you, and need
+                              to be corrected.
                             </p>
                           </td>
                           <td class="expander"></td>
@@ -92,7 +93,9 @@
                               <code><?= $error->line ?></code>
                             </td>
                             <td>
-                              <code><?= $error->message ?></code>
+                              <a href="https://sparkhire.codebasehq.com/projects/sparkhire/repositories/api/commit/<?= $error->commit ?>">
+                                <code><?= $error->message ?></code>
+                              </a>
                             </td>
                             <td>
                               <code><?= $error->standard ?></code>
@@ -138,10 +141,12 @@
                           <td align="center">
                             <center>
                               <p style="text-align:center;">
-                                Sent at 3:22 on Monday May 12<sup>th</sup>.
+                                Sent <?= $date ?>.
                               </p>
                               <p style="text-align:center;">
-                                Triggered by build #<a href="https://sparkhire.codebasehq.com/projects/sparkhire/repositories/api/commit/d600a3ac7d">d600a3ac7d</a>.
+                                Triggered by build
+                                #<a href="https://sparkhire.codebasehq.com/projects/sparkhire/repositories/api/commit/<?= $currentCommit ?>"><?= $currentCommit ?></a>
+                                committed by <?= $triggeredBy ?>.
                               </p>
                             </center>
                           </td>
