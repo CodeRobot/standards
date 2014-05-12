@@ -59,7 +59,7 @@
         $errors   = (int)$file->attributes()->errors;
         $warnings = (int)$file->attributes()->warnings;
 
-        $this->output->writeln(PHP_EOL . '<info>File: ' . str_replace(trim(`pwd`), '', $path) . '</info>');
+        $this->output->writeln(PHP_EOL . '<info>File: ' . str_replace(getcwd() . '/', '', $path) . '</info>');
 
         $report = [];
 
