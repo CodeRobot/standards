@@ -11,7 +11,8 @@
   "minimum-stability": "dev",
   "require": {
     "zetacomponents/console-tools": "dev-master",
-    "symfony/console": "~2.3"
+    "symfony/console": "~2.3",
+    "swiftmailer/swiftmailer": "5.2.*@dev"
   },
   "autoload": {
     "classmap": [
