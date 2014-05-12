@@ -15,7 +15,8 @@
   },
   "autoload": {
     "classmap": [
-      "commands"
+      "commands",
+      "libraries"
     ]
   },
   "bin": [
