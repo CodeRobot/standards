@@ -18,7 +18,7 @@
      *
      * @return string
      **/
-    public static function render($template, array $data = []) {
+    public static function render($template, array $data = array()) {
       extract($data);
 
       ob_start();
