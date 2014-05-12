@@ -102,7 +102,7 @@
             'dprevite@etech360.com' => 'Jenkins Enforcer'
           ])
           ->setTo([
-            'dprevite@etech360.com' => 'Dan Previte'
+            $triggeredBy
           ])
           ->addPart($message, 'text/html');
 
