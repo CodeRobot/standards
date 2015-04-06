@@ -1,4 +1,231 @@
 <?xml version="1.0"?>
 <ruleset name="CodeRobot">
-  <description>The coding standard for all code produced by Spark Hire.</description>
+  <description>The coding standard for all code produced by Code Robot.</description>
+
+  <!--
+    Include some sniffs from other standards
+  -->
+  <rule ref="Generic"/>
+  <rule ref="MySource"/>
+  <rule ref="PEAR"/>
+  <rule ref="PSR1"/>
+  <rule ref="PSR2"/>
+  <rule ref="Squiz"/>
+  <rule ref="Zend"/>
+
+  <!--
+    Disable some rules
+  -->
+  <rule ref="Generic">
+    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent"/>
+    <exclude name="Generic.Files.LowercasedFilename"/>
+    <exclude name="Generic.PHP.ClosingPHPTag.NotFound"/>
+    <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+    <exclude name="Generic.Files.EndFileNewline.NotFound"/>
+    <exclude name="Generic.PHP.LowerCaseConstant"/>
+    <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+    <exclude name="Generic.Formatting.SpaceAfterCast.NoSpace"/>
+    <exclude name="PEAR.Classes.ClassDeclaration.OpenBraceNewLine"/>
+    <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+    <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
+    <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+    <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+    <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+    <exclude name="PSR2.Files.EndFileNewline.NoneFound"/>
+    <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction"/>
+    <exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent"/>
+    <exclude name="Squiz.Commenting.FileComment.Missing"/>
+    <exclude name="Squiz.Files.FileExtension.ClassFound"/>
+    <exclude name="Squiz.Classes.ClassDeclaration.SpaceBeforeKeyword"/>
+    <exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing"/>
+    <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
+    <exclude name="MySource.PHP.ReturnFunctionValue.NotAssigned"/>
+    <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose"/>
+    <exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>
+    <exclude name="Squiz.Commenting.ClassComment.TagNotAllowed"/>
+    <exclude name="MySource.Channels.IncludeSystem.NotIncludedExtends"/>
+    <exclude name="Squiz.Classes.ClassDeclaration.OpenBraceNewLine"/>
+    <exclude name="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast"/>
+    <exclude name="MySource.Channels.IncludeSystem.NotIncludedCall"/>
+    <exclude name="Squiz.ControlStructures.ElseIfDeclaration.NotAllowed"/>
+    <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+    <exclude name="Squiz.Operators.ComparisonOperatorUsage.NotAllowed"/> <!-- I like this in theory, but it looks awkward in if's -->
+    <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>
+    <exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before"/>
+    <exclude name="Squiz.PHP.DisallowInlineIf.Found"/>
+    <exclude name="Squiz.Formatting.OperatorBracket.MissingBrackets"/>
+    <exclude name="Squiz.Commenting.LongConditionClosingComment.Missing"/>
+    <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found"/>
+    <exclude name="Generic.Formatting.MultipleStatementAlignment.Incorrect"/> <!-- this maybe needs work? -->
+    <exclude name="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
+    <exclude name="Squiz.PHP.DisallowBooleanStatement.Found"/>
+    <exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/> <!-- doesn't work when creating in an array declaration, otherwise great -->
+    <exclude name="Squiz.PHP.DisallowComparisonAssignment.AssignedComparison"/>
+    <exclude name="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+    <exclude name="Squiz.Commenting.PostStatementComment.Found"/>
+    <exclude name="Squiz.ControlStructures.InlineIfDeclaration.NotSingleLine"/> <!-- doesn't work on the last line in an array declaration, otherwise works -->
+    <exclude name="Squiz.Commenting.InlineComment.WrongStyle"/>
+    <exclude name="Squiz.NamingConventions.ValidFunctionName.PublicUnderscore"/>
+    <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+    <exclude name="Squiz.PHP.DisallowComparisonAssignment.AssignedBool"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.SpacingAfterDefaultBreak"/> <!-- i dont think this works -->
+    <exclude name="PEAR.Commenting.FileComment.Missing"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
+    <exclude name="PEAR.Functions.FunctionDeclaration.SpaceAfterFunction"/>
+    <exclude name="PEAR.WhiteSpace.ObjectOperatorIndent.Incorrect"/>
+    <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
+    <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+
+    <!-- Wish list -->
+    <!--
+    * One blank line before return
+    * One blank line before @return
+    -->
+
+    <!-- Maybe need custom versions of these? -->
+    <exclude name="Generic.WhiteSpace.ScopeIndent"/>
+    <exclude name="Generic.Strings.UnnecessaryStringConcat.Found"/>
+    <exclude name="Zend.NamingConventions.ValidVariableName.ContainsNumbers"/> <!-- need to exclude warnings for "s3" -->
+    <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.BreakIdent"/> <!-- break indent should line up with case -->
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.SpacingAfterBreak"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.DefaultIndent"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.CaseIndent"/>
+    <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/> <!-- This seems to be wrong a lot -->
+    <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/> <!-- Wants to indent things after the opening [ -->
+    <exclude name="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned"/> <!-- Wants to indent things after the opening [ -->
+    <exclude name="Squiz.Arrays.ArrayDeclaration.KeyNotAligned"/> <!-- Wants to indent things after the opening [ -->
+    <exclude name="Squiz.WhiteSpace.MemberVarSpacing.Incorrect"/> <!-- 2 spaces instead of 1 -->
+    <exclude name="Squiz.Classes.ClassDeclaration.SpaceBeforeCloseBrace"/> <!-- 2 spaces instead of 0 -->
+    <exclude name="MySource.Commenting.FunctionComment.ParamCommentFullStop"/> <!-- reverse of this, never a full stop -->
+    <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/> <!-- reverse of this, never a full stop -->
+    <exclude name="MySource.Commenting.FunctionComment.ThrowsNoFullStop"/> <!-- reverse of this, never a full stop -->
+    <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/> <!-- reverse of this, never a full stop -->
+    <exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop"/> <!-- reverse of this, never a full stop -->
+    <exclude name="MySource.PHP.GetRequestData.SuperglobalAccessedWithVar"/> <!-- need to update tip for laravel -->
+    <exclude name="MySource.PHP.GetRequestData.SuperglobalAccessed"/> <!-- need to update tip for laravel -->
+    <exclude name="PEAR.WhiteSpace.ScopeIndent"/> <!-- need to work indented 2 spaces -->
+    <exclude name="PEAR.Functions.FunctionDeclaration.BraceOnSameLine"/> <!-- we do want it on the same line -->
+
+    <!-- Put me back in when you're done -->
+    <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
+    <exclude name="Generic.Files.LineLength.TooLong"/>
+    <exclude name="Generic.Files.LineLength.MaxExceeded"/>
+    <exclude name="Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps"/>
+    <exclude name="Generic.Metrics.CyclomaticComplexity.TooHigh"/>
+    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIF"/>
+    <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found"/>
+    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCATCH"/>
+    <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
+    <exclude name="Generic.CodeAnalysis.UselessOverridingMethod.Found"/>
+    <exclude name="Generic.Commenting.DocComment.ShortNotCapital"/>
+    <exclude name="Generic.Metrics.CyclomaticComplexity.MaxExceeded"/>
+    <exclude name="Generic.Commenting.Todo.TaskFound"/>
+    <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
+    <exclude name="Generic.NamingConventions.CamelCapsFunctionName.NotCamelCaps"/>
+    <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+    <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
+    <exclude name="Squiz.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
+    <exclude name="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
+    <exclude name="PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
+    <exclude name="Squiz.Commenting.VariableComment.Missing"/>
+    <exclude name="MySource.Commenting.FunctionComment.TypeHintMissing"/>
+    <exclude name="MySource.Commenting.FunctionComment.Missing"/>
+    <exclude name="MySource.Commenting.FunctionComment.InvalidNoReturn"/>
+    <exclude name="MySource.Commenting.FunctionComment.MissingParamComment"/>
+    <exclude name="Squiz.WhiteSpace.FunctionSpacing.Before"/>
+    <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.NoLineAfterClose"/>
+    <exclude name="MySource.Commenting.FunctionComment.EmptyThrows"/>
+    <exclude name="Squiz.Commenting.FunctionCommentThrowTag.WrongNumber"/>
+    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+    <exclude name="MySource.Commenting.FunctionComment.InvalidReturnNotVoid"/>
+    <exclude name="MySource.Commenting.FunctionComment.MissingParamTag"/>
+    <exclude name="MySource.Commenting.FunctionComment.MissingParamName"/>
+    <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
+    <exclude name="Squiz.Scope.StaticThisUsage.Found"/>
+    <exclude name="Squiz.Classes.ClassFileName.NoMatch"/>
+    <exclude name="MySource.Commenting.FunctionComment.ParamNameNoMatch"/>
+    <exclude name="MySource.Commenting.FunctionComment.ParamCommentNotCapital"/>
+    <exclude name="MySource.Commenting.FunctionComment.ExtraParamComment"/>
+    <exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing"/>
+    <exclude name="Squiz.Commenting.VariableComment.MissingVar"/>
+    <exclude name="Squiz.Commenting.InlineComment.NotCapital"/>
+    <exclude name="Squiz.Commenting.EmptyCatchComment.Missing"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.MissingDefault"/>
+    <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
+    <exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed"/>
+    <exclude name="Squiz.PHP.DiscouragedFunctions.Discouraged"/>
+    <exclude name="MySource.Commenting.FunctionComment.MissingReturnType"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration.DefaultNoBreak"/>
+    <exclude name="MySource.Commenting.FunctionComment.InvalidReturnVoid"/>
+    <exclude name="Squiz.PHP.NonExecutableCode.ReturnNotRequired"/>
+    <exclude name="MySource.Commenting.FunctionComment.ParamNameNoCaseMatch"/>
+    <exclude name="MySource.Commenting.FunctionComment.MissingReturn"/>
+    <exclude name="Squiz.Scope.MethodScope.Missing"/>
+    <exclude name="MySource.Commenting.FunctionComment.WrongStyle"/>
+    <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+    <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+    <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
+    <exclude name="Squiz.Commenting.FunctionComment.MissingReturnType"/>
+    <exclude name="Squiz.Commenting.FunctionComment.InvalidNoReturn"/>
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+    <exclude name="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
+    <exclude name="Squiz.Commenting.FunctionComment.ExtraParamComment"/>
+    <exclude name="Squiz.Commenting.FunctionComment.InvalidReturnNotVoid"/>
+    <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+    <exclude name="Squiz.Commenting.FunctionComment.ParamNameNoCaseMatch"/>
+    <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+    <exclude name="Squiz.Commenting.FunctionComment.MissingReturn"/>
+    <exclude name="Squiz.Commenting.FunctionComment.InvalidReturnVoid"/>
+    <exclude name="Squiz.Commenting.FunctionComment.WrongStyle"/>
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamName"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamComment"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamName"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamTag"/>
+    <exclude name="PEAR.Commenting.FunctionComment.ParamNameNoMatch"/>
+    <exclude name="PEAR.Commenting.FunctionComment.ExtraParamComment"/>
+    <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="140"/>
+      <property name="absoluteLineLimit" value="180"/>
+    </properties>
+  </rule>
+
+  <rule ref="PEAR.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2"/>
+    </properties>
+  </rule>
+
+  <!--
+    Here we are including a specific sniff but also changing
+    the error message of a specific message inside the sniff.
+    Note that the specific code for the message, which is
+    CommentFound in this case, is defined by the sniff developer.
+    You can display these codes by using the -s command line
+    argument when checking a file.
+
+    Also note that this message has a variable inside it,
+    which is why it is important that sniffs use a printf style
+    format for their error messages.
+
+    We also drop the severity of this message from the
+    default value (5) so that it is hidden by default. It can be
+    displayed by setting the minimum severity on the PHP_CodeSniffer
+    command line. This is great if you want to use some messages
+    only in code reviews and not have them block code commits.
+  -->
+  <rule ref="Generic.Commenting.Todo.CommentFound">
+    <message>Please review this TODO comment: %s</message>
+    <severity>3</severity>
+  </rule>
 </ruleset>
