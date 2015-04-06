@@ -17,6 +17,7 @@
     Disable some rules
   -->
   <rule ref="Generic">
+    <!-- Rules I do not want -->
     <exclude name="Generic.WhiteSpace.DisallowSpaceIndent"/>
     <exclude name="Generic.Files.LowercasedFilename"/>
     <exclude name="Generic.PHP.ClosingPHPTag.NotFound"/>
@@ -80,6 +81,7 @@
     <exclude name="PEAR.WhiteSpace.ObjectOperatorIndent.Incorrect"/>
     <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
     <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+    <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
 
     <!-- Wish list -->
     <!--
@@ -112,7 +114,11 @@
     <exclude name="PEAR.WhiteSpace.ScopeIndent"/> <!-- need to work indented 2 spaces -->
     <exclude name="PEAR.Functions.FunctionDeclaration.BraceOnSameLine"/> <!-- we do want it on the same line -->
 
+    <!-- Rules that are too difficult to fix right now -->
+    <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
+
     <!-- Put me back in when you're done -->
+    <!--
     <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
     <exclude name="Generic.Files.LineLength.TooLong"/>
     <exclude name="Generic.Files.LineLength.MaxExceeded"/>
@@ -126,7 +132,6 @@
     <exclude name="Generic.Commenting.DocComment.ShortNotCapital"/>
     <exclude name="Generic.Metrics.CyclomaticComplexity.MaxExceeded"/>
     <exclude name="Generic.Commenting.Todo.TaskFound"/>
-    <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
     <exclude name="Generic.NamingConventions.CamelCapsFunctionName.NotCamelCaps"/>
     <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
     <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
@@ -191,6 +196,7 @@
     <exclude name="PEAR.Commenting.FunctionComment.ParamNameNoMatch"/>
     <exclude name="PEAR.Commenting.FunctionComment.ExtraParamComment"/>
     <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+    -->
   </rule>
 
   <rule ref="Generic.Files.LineLength">
