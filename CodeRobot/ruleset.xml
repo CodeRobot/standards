@@ -82,6 +82,10 @@
     <exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before"/>
     <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
     <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+    <exclude name="MySource.Commenting.FunctionComment.TypeHintMissing"/>
+    <exclude name="MySource.Commenting.FunctionComment.InvalidReturnVoid"/>
+    <exclude name="Squiz.Commenting.InlineComment.NotCapital"/>
+    <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
 
     <!-- Wish list -->
     <!--
@@ -138,7 +142,6 @@
     <exclude name="MySource.Commenting.FunctionComment.ExtraParamComment"/>
     <exclude name="MySource.Commenting.FunctionComment.InvalidNoReturn"/>
     <exclude name="MySource.Commenting.FunctionComment.InvalidReturnNotVoid"/>
-    <exclude name="MySource.Commenting.FunctionComment.InvalidReturnVoid"/>
     <exclude name="MySource.Commenting.FunctionComment.Missing"/>
     <exclude name="MySource.Commenting.FunctionComment.MissingParamComment"/>
     <exclude name="MySource.Commenting.FunctionComment.MissingParamName"/>
@@ -148,7 +151,6 @@
     <exclude name="MySource.Commenting.FunctionComment.ParamCommentNotCapital"/>
     <exclude name="MySource.Commenting.FunctionComment.ParamNameNoCaseMatch"/>
     <exclude name="MySource.Commenting.FunctionComment.ParamNameNoMatch"/>
-    <exclude name="MySource.Commenting.FunctionComment.TypeHintMissing"/>
     <exclude name="MySource.Commenting.FunctionComment.WrongStyle"/>
     <exclude name="PEAR.Commenting.FunctionComment.ExtraParamComment"/>
     <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
@@ -180,7 +182,6 @@
     <exclude name="Squiz.Commenting.FunctionComment.WrongStyle"/>
     <exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing"/>
     <exclude name="Squiz.Commenting.FunctionCommentThrowTag.WrongNumber"/>
-    <exclude name="Squiz.Commenting.InlineComment.NotCapital"/>
     <exclude name="Squiz.Commenting.VariableComment.Missing"/>
     <exclude name="Squiz.Commenting.VariableComment.MissingVar"/>
     <exclude name="Squiz.ControlStructures.SwitchDeclaration.DefaultNoBreak"/>
@@ -188,7 +189,6 @@
     <exclude name="Squiz.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
     <exclude name="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
     <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
-    <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
     <exclude name="Squiz.PHP.DiscouragedFunctions.Discouraged"/>
     <exclude name="Squiz.PHP.NonExecutableCode.ReturnNotRequired"/>
     <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
