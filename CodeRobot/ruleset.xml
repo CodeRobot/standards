@@ -86,6 +86,8 @@
     <exclude name="MySource.Commenting.FunctionComment.InvalidReturnVoid"/>
     <exclude name="Squiz.Commenting.InlineComment.NotCapital"/>
     <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
+    <exclude name="PEAR.Commenting.FileComment.WrongStyle"/>
+    <exclude name="Squiz.Commenting.FileComment.WrongStyle"/>
 
     <!-- Wish list -->
     <!--
